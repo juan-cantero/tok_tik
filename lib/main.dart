@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tok_tik/config/theme/app_theme.dart';
+import 'package:tok_tik/infrastructure/datasources/local_video_datasource_impl.dart';
+import 'package:tok_tik/infrastructure/repository/video_post_repository_impl.dart';
 import 'package:tok_tik/presentation/providers/discover_provider.dart';
 import 'package:tok_tik/presentation/screens/discover/discover_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final videoPostRepository = VideoPostRepositoryImpl(
+    videosDatasource: LocalVideoDatasourceImpl(),
+  );
+  MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -17,7 +22,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => DiscoverProvider()..loadNextPage(),
+          create: (_) =>
+              DiscoverProvider(videosRepository: videoPostRepository)
+                ..loadNextPage(),
         ),
       ],
       child: MaterialApp(

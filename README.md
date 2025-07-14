@@ -379,3 +379,11 @@ lib/
 ---
 
 **🎓 This project is designed for learning purposes and demonstrates practical Flutter development techniques through building a modern video application.**
+
+
+example clean architecture: 
+1 . ui
+2 . presentation
+3 . use cases
+4 . repositories and datasources
+5 . information returns to UI
